@@ -2,6 +2,7 @@
     "name": "gistup",
     "displayName": "GistUp",
     "description": "A tool to upload code snippets to gist",
+    "icon": "images/gistup.webp",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.90.0"
@@ -14,10 +15,39 @@
     "contributes": {
         "commands": [
             {
-                "command": "gistup.helloWorld",
-        "title": "Hello World"
+                "command": "gistup.gistActiveFile",
+                "title": "GistUp: upload current active file to gist"
+            },
+            {
+                "command": "gistup.gistActiveFiles",
+                "title": "GistUp: upload visible editors to gist"
             }
-        ]
+        ],
+        "configuration": {
+            "type": "object",
+            "properties": {
+                "gistup.visibility": {
+                    "type": "string",
+                    "enum": [
+                        "selection",
+                        "private",
+                        "public"
+                    ],
+                    "default": "selection",
+                    "description": "Visibility of the uploaded gist"
+                },
+                "gistup.gistToken": {
+                    "type": "string",
+                    "default": "",
+                    "description": "GitHub token used to authenticate gist uploads"
+                },
+                "gistup.copyGistUrlToClipboard": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Copy gist url after successfully uploading a gist"
+                }
+            }
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
@@ -28,6 +58,8 @@
         "test": "vscode-test"
     },
     "devDependencies": {
+        "@types/axios": "^0.14.0",
+        "@types/lodash": "^4.17.5",
         "@types/mocha": "^10.0.6",
         "@types/node": "18.x",
         "@types/vscode": "^1.90.0",
@@ -39,6 +71,7 @@
         "typescript": "^5.4.5"
     },
     "dependencies": {
-        "axios": "^1.7.2"
+        "axios": "^1.7.2",
+        "lodash": "^4.17.21"
     }
 }
